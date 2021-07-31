@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Event Propagation</title>
+</head>
+<body>
+
+<div>
+    <button>click</button>
+</div>
+
+<script>
+    const eventPhaseName = e => {
+        switch (e.eventPhase) {
+        case 1:
+            return 'capturing';
+        case 2:
+            return 'target';
+        case 3:
+            return 'bubbling';
+        default:
+            return 'none';
+        }
+    };
+    document.body.addEventListener('click', e => {
+        console.log(`body: in ${eventPhaseName(e)} phase`);
+    }, true);
+    document.body.addEventListener('click', e => {
+        console.log(`body: in ${eventPhaseName(e)} phase`);
+    });
+    const div = document.querySelector('div');
+    div.addEventListener('click', e => {
+        console.log(`div: in ${eventPhaseName(e)} phase`);
+    }, true);
+    div.addEventListener('click', e => {
+        console.log(`div: in ${eventPhaseName(e)} phase`);
+    });
+    // event targetの場合、trueつけた方がtarget phaseの最初に呼ばれる
+    const button = document.querySelector('button');
+    button.addEventListener('click', e => {
+        console.log(`button: in ${eventPhaseName(e)} phase`);
+    }, true);
+    button.addEventListener('click', e => {
+        console.log(`button: in ${eventPhaseName(e)} phase`);
+    });
+</script>
+
+</body>
+</html>
