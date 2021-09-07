@@ -13,6 +13,10 @@
     <button>click</button>
 </div>
 
+<form>
+  <button name="submit" onClick="console.log('clicked')">submit</button>
+</form>
+
 <script>
     const eventPhaseName = e => {
         switch (e.eventPhase) {
@@ -47,6 +51,11 @@
     button.addEventListener('click', e => {
         console.log(`button: in ${eventPhaseName(e)} phase`);
     });
+
+    const form = document.querySelector('form');
+    form.addEventListener('click', e => {
+      console.log(e.target.isEqualNode(form.submit));
+    }, true);
 </script>
 
 </body>
